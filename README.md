@@ -1,10 +1,31 @@
-# Microsoft eShopOnWeb ASP.NET Core Reference Application
+# eShopOnNServiceBus - Microsoft eShopOnWeb ASP.NET Core Reference Application + NServiceBus
 
-This Microsoft reference application is now being maintained by [NimblePros](https://nimblepros.com/).
+This repo contains a snapshot of eShopOnWeb as of June 2025. 
 
-If you're looking for the .NET Aspire eShop sample it's [here](https://github.com/dotnet/eShop). Microsoft also recommends the [Reliable Web App](https://learn.microsoft.com/azure/architecture/web-apps/guides/reliable-web-app/overview) patterns guidance for building web apps with enterprise app patterns.
+The purpose of this repo is to show how you can use [NServiceBus](https://go.particular.net/using-nservicebus-2024) in .NET apps.
 
-Sample ASP.NET Core reference application, powered by Microsoft, demonstrating a single-process (monolithic) application architecture and deployment model. If you're new to .NET development, read the [Getting Started for Beginners](https://github.com/nimblepros/eShopOnWeb/wiki/Getting-Started-for-Beginners) guide.
+This demo was shown as part of [the NimblePros' webinar on domain events](https://www.youtube.com/live/29-kl2V2sps?si=EhkwoRqZsypvu2DE). 
+
+This repo will be expanded on for [the NimblePros' webinar on NServiceBus](https://www.youtube.com/live/YWHY09R46m4?si=TLzKCk0FnWl0qSwv).
+
+## Other eShop samples
+
+- [.NET Aspire eShop sample](https://github.com/dotnet/eShop)
+  - Microsoft also recommends the [Reliable Web App](https://learn.microsoft.com/azure/architecture/web-apps/guides/reliable-web-app/overview) patterns guidance for building web apps with enterprise app patterns.
+- [eShopOnWeb without NServiceBus](https://github.com/NimblePros/eShopOnWeb)
+
+## Learn more about NServiceBus + NimblePros' Relationship with It
+
+- [Meet our Particular Software Recognized Professionals](https://blog.nimblepros.com/blogs/introducing-our-particular-software-recognized-professionals/)
+- [NimblePros Named a Particular Partner for Expertise in NServiceBus](https://blog.nimblepros.com/blogs/nimblepros-particular-partner/)
+- [NimblePros Blog Series on NServiceBus](https://blog.nimblepros.com/series/nservicebus/) including:
+    - [Introduction](https://blog.nimblepros.com/blogs/what-is-nservicebus/) and [Getting Started](https://blog.nimblepros.com/blogs/getting-started-with-nservicebus/)
+    - Concepts such as [asychronous messaging](https://blog.nimblepros.com/blogs/what-is-asynchronous-messaging/) and [commands, events, and messages](https://blog.nimblepros.com/blogs/commands-events-messages-explained/)
+    - [Testing Message Handlers](https://blog.nimblepros.com/blogs/testing-nservicebus-message-handlers/)
+    - Sagas - [Introduction](https://blog.nimblepros.com/blogs/supercharged-sagas-introduction/), [create your first saga](https://blog.nimblepros.com/blogs/supercharged-sagas-creating-your-first-nservicebus-saga/), [timeout tips](https://blog.nimblepros.com/blogs/supercharged-sagas-timeout-tips/), and [testing strategies](https://blog.nimblepros.com/blogs/supercharged-sagas-unit-testing-strategies/)
+    - And some fun! [Automating Santa's Workshop with NServiceBus](https://blog.nimblepros.com/blogs/automating-santas-workshop-with-nservicebus/)
+
+## More from the README on eShopOnWeb
 
 A list of Frequently Asked Questions about this repository can be found [here](https://github.com/nimblepros/eShopOnWeb/wiki/Frequently-Asked-Questions).
 
