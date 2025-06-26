@@ -6,7 +6,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    outputs:
+        pr-number: ${{ github.event.number }}
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -45,4 +46,4 @@ jobs:
     needs: build
     uses: NimblePros/NimblePros.GitHub.Workflows/.github/workflows/comment-on-pr.yml@main
     with:
-      pr-number: ${{ github.event.number }}
+      pr-number: ${{ needs.build.outputs.pr-number }}
