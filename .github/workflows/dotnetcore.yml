@@ -13,7 +13,6 @@ jobs:
         pr-number: ${{ steps.captureEventDetails.outputs.pr-number }}
         code-coverage-artifact-name: ${{ env.CODE_COVERAGE_ARTIFACT_NAME }}
         code-coverage-artifact-path: ${{ env.CODE_COVERAGE_ARTIFACT_PATH }}
-        event-triggered: ${{ steps.captureEventDetails.outputs.event-triggered }}
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -53,8 +52,7 @@ jobs:
       shell: bash
       env:
         PR_NUMBER: ${{ github.event.number }}
-        EVENT_TRIGGERED: $${{ github.event_name }}
-      run: echo pr-number=$PR_NUMBER >> $GITHUB_OUTPUT; echo event-triggered=$EVENT_TRIGGERED >> $GITHUB_OUTPUT
+      run: echo pr-number=$PR_NUMBER >> $GITHUB_OUTPUT
   
   add-code-coverage-to-pr:
     needs: build
@@ -63,4 +61,3 @@ jobs:
       pr-number: ${{ needs.build.outputs.pr-number }}
       code-coverage-artifact-name: ${{ needs.build.outputs.code-coverage-artifact-name }}
       code-coverage-artifact-path: ${{ needs.build.outputs.code-coverage-artifact-path }}    
-      event-triggered: ${{ needs.build.outputs.event-triggered }}
