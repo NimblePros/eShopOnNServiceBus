@@ -10,6 +10,10 @@ on:
     types:
       - completed
 
+permissions:
+  actions: read
+  contents: read
+
 jobs:
    get-inputs:
      runs-on: ubuntu-latest
