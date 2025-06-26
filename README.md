@@ -57,7 +57,7 @@ A list of Frequently Asked Questions about this repository can be found [here](h
 
 ## eBook
 
-**Note**: NServiceBus is not mentioned in the eBook. This repo has a custom vendor implementation that differs from what may be in the book.
+**Note**: NServiceBus is not mentioned in the eBook. This repo has a custom vendor implementation that differs from what is in the book.
 
 This reference application is meant to support the free .PDF download ebook: [Architecting Modern Web Applications with ASP.NET Core and Azure](https://aka.ms/webappebook), updated to **ASP.NET Core 8.0**. [Also available in ePub/mobi formats](https://dotnet.microsoft.com/learn/web/aspnet-architecture).
 
