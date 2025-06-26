@@ -23,27 +23,25 @@ jobs:
         uses: dawidd6/action-download-artifact@v10
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
-          workflow_conclusion: ""
+          workflow_conclusion: success
           name: workflow-outputs
 
-      - name: Read output values
-        id: read
-        run: |
-          pr-number=$(cat pr-number.txt)
-          code-coverage-artifact-name=$(cat artifact_name.txt)
-          code-coverage-artifact-path=$(cat artifact_path.txt)
+      - name: Read PR Number into GitHub environment variables
+        run: echo "PR_NUMBER=$(cat pr_number.txt)" >> $GITHUB_ENV
 
-          echo "pr-number=$pr-number" >> $GITHUB_ENV
-          echo "code-coverage-artifact-name=$code-coverage-artifact-name" >> $GITHUB_ENV
-          echo "code-coverage-artifact-path=$code-coverage-artifact-path" >> $GITHUB_ENV
+      - name: Read Code Coverage Artifact Name into GitHub environment variables
+        run: echo "CODE_COVERAGE_ARTIFACT_NAME=$(cat artifact_name.txt)" >> $GITHUB_ENV
+
+      - name: Read Code Coverage Artifact Path into GitHub environment variables
+        run: echo "CODE_COVERAGE_ARTIFACT_PATH=$(cat artifact_path.txt)" >> $GITHUB_ENV      
 
    add-code-coverage-to-pr:
      needs: get-inputs
      runs-on: ubuntu-latest
      steps:
-      - run: echo ${{ env.pr-number }}
-      - run: echo ${{ env.code-coverage-artifact-name }}
-      - run: echo ${{ env.code-coverage-artifact-path }}
+      - run: echo ${{ env.PR_NUMBER }}
+      - run: echo ${{ env.CODE_COVERAGE_ARTIFACT_NAME }}
+      - run: echo ${{ env.CODE_COVERAGE_ARTIFACT_PATH }}
    # uses: NimblePros/NimblePros.GitHub.Workflows/.github/workflows/comment-on-pr.yml@main
    # with:
    #   pr-number: ${{ env.pr-number }}
