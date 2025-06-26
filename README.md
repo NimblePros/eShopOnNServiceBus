@@ -14,6 +14,14 @@ This repo will be expanded on for [the NimblePros' webinar on NServiceBus](https
   - Microsoft also recommends the [Reliable Web App](https://learn.microsoft.com/azure/architecture/web-apps/guides/reliable-web-app/overview) patterns guidance for building web apps with enterprise app patterns.
 - [eShopOnWeb without NServiceBus](https://github.com/NimblePros/eShopOnWeb)
 
+## A Note on CI/CD
+
+We use a ``workflow_run`` workflow to add code coverage comments to our PRs. It is a separate workflow [detailed in the NimblePros blog post](https://blog.nimblepros.com/blogs/using-workflow-run-in-github-actions/).
+
+Our workflow_run workflow for Commenting on a PR refers to our reusable workflow in [NimblePros.GitHub.Workflows](https://github.com/NimblePros/NimblePros.GitHub.Workflows). This is why there are 2 jobs in this workflow:
+  - A job to capture the variables from the calling workflow
+  - A job to call to the reusable workflow. This has to be in its own job and cannot be a step in a job.
+
 ## Learn more about NServiceBus + NimblePros' Relationship with It
 
 - [Meet our Particular Software Recognized Professionals](https://blog.nimblepros.com/blogs/introducing-our-particular-software-recognized-professionals/)
