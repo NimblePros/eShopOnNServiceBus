@@ -1,7 +1,6 @@
 name: eShopOnNServiceBus Build and Test
 
 on: [push, pull_request, workflow_dispatch]
-
 env:
   CODE_COVERAGE_ARTIFACT_NAME: code-coverage-results
   CODE_COVERAGE_ARTIFACT_PATH: code-coverage-results.md
