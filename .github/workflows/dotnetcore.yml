@@ -44,7 +44,6 @@ jobs:
         retention-days: 1
     - name: Capture the PR number
       id: PRNumberStep
-      if: github.event_name == 'pull_request' && (success() || failure()) 
       shell: bash
       env:
         PR_NUMBER: ${{ github.event.number }}
