@@ -68,7 +68,7 @@ https://docs.microsoft.com/dotnet/architecture/modern-web-apps-azure/
 
 The **eShopOnWeb** sample is related to the [eShopOnContainers](https://github.com/dotnet/eShopOnContainers) sample application which, in that case, focuses on a microservices/containers-based application architecture. However, **eShopOnWeb** is much simpler in regards to its current functionality and focuses on traditional Web Application Development with a single deployment.
 
-The goal for this sample is to demonstrate some of the principles and patterns described in the [eBook](https://aka.ms/webappebook). It is not meant to be an eCommerce reference application, and as such it does not implement many features that would be obvious and/or essential to a real eCommerce application.
+The goal for this sample is to **demonstrate some of the principles and patterns** described in the [eBook](https://aka.ms/webappebook). It is not meant to be an eCommerce reference application, and as such it does not implement many features that would be obvious and/or essential to a real eCommerce application.
 
 > ### VERSIONS
 > #### The `main` branch is currently running ASP.NET Core 9.0.
