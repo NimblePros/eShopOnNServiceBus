@@ -43,6 +43,6 @@ jobs:
         retention-days: 1
   add-code-coverage-to-pr:
     uses: NimblePros/NimblePros.GitHub.Workflows/.github/workflows/comment-on-pr.yml@main
-    if: github.event_name == 'pull_request
+    if: github.event_name == 'pull_request'
     with:
       pr-number: ${{ github.event.number }}
