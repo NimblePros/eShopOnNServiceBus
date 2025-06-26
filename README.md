@@ -1,4 +1,4 @@
-# eShopOnNServiceBus - Microsoft eShopOnWeb ASP.NET Core Reference Application + NServiceBus
+# eShopOnNServiceBus - Microsoft eShopOnWeb ASP.NET Core Reference Application + NServiceBus 
 
 This repo contains a snapshot of eShopOnWeb as of June 2025. 
 
