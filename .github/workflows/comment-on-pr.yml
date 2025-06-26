@@ -1,12 +1,12 @@
-# https://blog.nimblepros.com/blogs/using-workflow-run-in-github-actions/
-
 name: Comment on the Pull Request
 
 # read-write repo token
 # See: https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
+# Don't remove this file - read on at: https://blog.nimblepros.com/blogs/using-workflow-run-in-github-actions/
+
 on:
   workflow_run:
-    workflows: [".NET Core"]
+    workflows: ["eShopOnNServiceBus Build and Test"]
     types:
       - completed
 
