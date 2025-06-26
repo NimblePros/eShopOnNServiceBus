@@ -7,7 +7,7 @@ jobs:
 
     runs-on: ubuntu-latest
     outputs:
-        pr-number: ${{ github.event.number }}
+        pr-number: ${{ steps.PRNumberStep.outputs.pr-number }}
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -42,6 +42,10 @@ jobs:
         name: code-coverage-results
         path: code-coverage-results.md
         retention-days: 1
+    - name: Capture the PR number
+      id: PRNumberStep       
+      run: echo "pr-number=${{ github.event.number }}" >> "$GITHUB_OUTPUT"
+  
   add-code-coverage-to-pr:
     needs: build
     runs-on: ubuntu-latest
