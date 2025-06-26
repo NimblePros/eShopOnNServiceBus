@@ -13,7 +13,7 @@ jobs:
         pr-number: ${{ steps.CapturePRNumber.outputs.pr-number }}
         code-coverage-artifact-name: ${{ env.CODE_COVERAGE_ARTIFACT_NAME }}
         code-coverage-artifact-path: ${{ env.CODE_COVERAGE_ARTIFACT_PATH }}
-        event-triggered: ${{ github.event.workflow_run.event }}
+        event-triggered: ${{ github.event }}
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
