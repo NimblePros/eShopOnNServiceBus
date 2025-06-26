@@ -43,8 +43,12 @@ jobs:
         path: code-coverage-results.md
         retention-days: 1
     - name: Capture the PR number
-      id: PRNumberStep       
-      run: echo "pr-number=${{ github.event.number }}" >> "$GITHUB_OUTPUT"
+      id: PRNumberStep
+      if: github.event_name == 'pull_request' && (success() || failure()) 
+      shell: bash
+      env:
+        PR_NUMBER: ${{ github.event.number }}
+      run: echo pr-number=$PR_NUMBER >> $GITHUB_OUTPUT      
   
   add-code-coverage-to-pr:
     needs: build
