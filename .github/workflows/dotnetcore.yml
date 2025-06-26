@@ -6,7 +6,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    outputs:
+        pr-number: ${{ steps.PRNumberStep.outputs.pr-number }}
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -41,8 +42,15 @@ jobs:
         name: code-coverage-results
         path: code-coverage-results.md
         retention-days: 1
+    - name: Capture the PR number
+      id: PRNumberStep
+      shell: bash
+      env:
+        PR_NUMBER: ${{ github.event.number }}
+      run: echo pr-number=$PR_NUMBER >> $GITHUB_OUTPUT      
+  
   add-code-coverage-to-pr:
+    needs: build
     uses: NimblePros/NimblePros.GitHub.Workflows/.github/workflows/comment-on-pr.yml@main
-    if: github.event_name == 'pull_request' &&  (success() || failure())
     with:
-      pr-number: ${{ github.event.number }}
+      pr-number: ${{ needs.build.outputs.pr-number }}
