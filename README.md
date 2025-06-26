@@ -195,7 +195,7 @@ We use dev containers to make it easier for you to run the eShopOnWeb applicatio
 
 This project includes a `.devcontainer` folder with a [dev container configuration](https://containers.dev/), which lets you use a container as a full-featured dev environment.
 
-You can use the dev container to build and run the app without needing to install any of its tools locally. You can work in GitHub Codespaces or the VS Code Dev Containers extension.
+You can use the dev container to build and run the app without needing to install any of its tools locally. You can work in GitHub Codespaces or the VS Code Dev Containers extension!
 
 Learn more about using the dev container in [eShopOnWeb's dev container readme](/.devcontainer/devcontainerreadme.md).
 
