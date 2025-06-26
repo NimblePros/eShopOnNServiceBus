@@ -13,35 +13,42 @@ on:
 permissions:
   actions: read
   contents: read
+  pull-requests: write
 
 jobs:
    get-inputs:
      runs-on: ubuntu-latest
-     
+     outputs:
+        pr-number: ${{ steps.prNumber.outputs.PR_NUMBER }}
+        artifact-name: ${{ steps.artifactName.outputs.CODE_COVERAGE_ARTIFACT_NAME }}
+        artifact-path: ${{ steps.artifactPath.outputs.CODE_COVERAGE_ARTIFACT_PATH }}
      steps:
       - name: Get the workflow outputs artifact
-        uses: dawidd6/action-download-artifact@v10
+        uses: dawidd6/action-download-artifact@v11
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           workflow_conclusion: success
           name: workflow-outputs
 
       - name: Read PR Number into GitHub environment variables
-        run: echo "PR_NUMBER=$(cat pr_number.txt)" >> $GITHUB_ENV
+        id: prNumber
+        run: echo "PR_NUMBER=$(cat pr_number.txt)" >> $GITHUB_OUTPUT
 
       - name: Read Code Coverage Artifact Name into GitHub environment variables
-        run: echo "CODE_COVERAGE_ARTIFACT_NAME=$(cat artifact_name.txt)" >> $GITHUB_ENV
+        id: artifactName
+        run: echo "CODE_COVERAGE_ARTIFACT_NAME=$(cat artifact_name.txt)" >> $GITHUB_OUTPUT
 
       - name: Read Code Coverage Artifact Path into GitHub environment variables
-        run: echo "CODE_COVERAGE_ARTIFACT_PATH=$(cat artifact_path.txt)" >> $GITHUB_ENV      
+        id: artifactPath
+        run: echo "CODE_COVERAGE_ARTIFACT_PATH=$(cat artifact_path.txt)" >> $GITHUB_OUTPUT   
 
    add-code-coverage-to-pr:
      needs: get-inputs
      runs-on: ubuntu-latest
      steps:
-      - run: echo ${{ env.PR_NUMBER }}
-      - run: echo ${{ env.CODE_COVERAGE_ARTIFACT_NAME }}
-      - run: echo ${{ env.CODE_COVERAGE_ARTIFACT_PATH }}
+      - run: echo ${{ get-inputs.outputs.pr-number }}
+      - run: echo ${{ get-inputs.outputs.artifact-name }}
+      - run: echo ${{ get-inputs.outputs.artifact-path }}
    # uses: NimblePros/NimblePros.GitHub.Workflows/.github/workflows/comment-on-pr.yml@main
    # with:
    #   pr-number: ${{ env.pr-number }}
