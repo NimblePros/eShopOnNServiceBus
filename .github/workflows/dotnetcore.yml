@@ -41,18 +41,8 @@ jobs:
         name: code-coverage-results
         path: code-coverage-results.md
         retention-days: 1
-    
-    - name: Save the PR number in an artifact
-      if: github.event_name == 'pull_request' && (success() || failure()) 
-      shell: bash
-      env:
-        PR_NUMBER: ${{ github.event.number }}
-      run: echo $PR_NUMBER > pr-number.txt
-  
-    - name: Upload the PR number
-      uses: actions/upload-artifact@v4
-      if: github.event_name == 'pull_request' &&  (success() || failure())
-      with:
-        name: pr-number
-        path: ./pr-number.txt
-        retention-days: 1
+  add-code-coverage-to-pr:
+    uses: NimblePros/NimblePros.GitHub.Workflows/.github/workflows/comment-on-pr.yml@main
+    if: github.event_name == 'pull_request' &&  (success() || failure())
+    with:
+      pr-number: ${{ github.event.number }}
