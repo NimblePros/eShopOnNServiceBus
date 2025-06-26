@@ -53,3 +53,17 @@ jobs:
       env:
         PR_NUMBER: ${{ github.event.number }}
       run: echo pr-number=$PR_NUMBER >> $GITHUB_OUTPUT
+    - name: Save outputs to files
+      run: |
+          echo "${{ github.event.number }}" > pr_number.txt
+          echo "${{ env.CODE_COVERAGE_ARTIFACT_NAME }}" > artifact_name.txt
+          echo "${{ env.CODE_COVERAGE_ARTIFACT_PATH }}" > artifact_path.txt
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: workflow-outputs
+        path: |
+          pr_number.txt
+          artifact_name.txt
+          artifact_path.txt
+        retention-days: 1
