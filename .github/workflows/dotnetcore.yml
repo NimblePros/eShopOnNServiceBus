@@ -11,7 +11,7 @@ jobs:
 
     runs-on: ubuntu-latest
     outputs:
-        pr-number: ${{ steps.PRNumberStep.outputs.pr-number }}
+        pr-number: ${{ steps.CapturePRNumber.outputs.pr-number }}
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -47,7 +47,7 @@ jobs:
         path: $CODE_COVERAGE_ARTIFACT_PATH
         retention-days: 1
     - name: Capture the PR number
-      id: PRNumberStep
+      id: CapturePRNumber
       shell: bash
       env:
         PR_NUMBER: ${{ github.event.number }}
