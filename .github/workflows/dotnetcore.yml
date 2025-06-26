@@ -44,6 +44,5 @@ jobs:
   add-code-coverage-to-pr:
     needs: build
     uses: NimblePros/NimblePros.GitHub.Workflows/.github/workflows/comment-on-pr.yml@main
-    if: github.event_name == 'pull_request'
     with:
       pr-number: ${{ github.event.number }}
