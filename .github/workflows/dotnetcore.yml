@@ -10,7 +10,7 @@ jobs:
 
     runs-on: ubuntu-latest
     outputs:
-        pr-number: ${{ steps.CapturePRNumber.outputs.pr-number }}
+        pr-number: ${{ steps.captureEventDetails.outputs.pr-number }}
         code-coverage-artifact-name: ${{ env.CODE_COVERAGE_ARTIFACT_NAME }}
         code-coverage-artifact-path: ${{ env.CODE_COVERAGE_ARTIFACT_PATH }}
     steps:
@@ -48,11 +48,11 @@ jobs:
         path: ${{ env.CODE_COVERAGE_ARTIFACT_PATH }}
         retention-days: 1
     - name: Capture the PR number
-      id: CapturePRNumber
+      id: captureEventDetails
       shell: bash
       env:
         PR_NUMBER: ${{ github.event.number }}
-      run: echo pr-number=$PR_NUMBER >> $GITHUB_OUTPUT      
+      run: echo pr-number=$PR_NUMBER >> $GITHUB_OUTPUT
   
   add-code-coverage-to-pr:
     needs: build
