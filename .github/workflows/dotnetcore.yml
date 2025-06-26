@@ -47,7 +47,7 @@ jobs:
         name: ${{ env.CODE_COVERAGE_ARTIFACT_NAME }}
         path: ${{ env.CODE_COVERAGE_ARTIFACT_PATH }}
         retention-days: 1
-    - name: Capture the PR number
+    - name: Capture the PR number - for build job output
       id: captureEventDetails
       shell: bash
       env:
