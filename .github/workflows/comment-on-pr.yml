@@ -20,7 +20,7 @@ jobs:
      
      steps:
       - name: Get the workflow outputs artifact
-        uses: dawidd6/action-download-artifact@v6
+        uses: dawidd6/action-download-artifact@v10
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           workflow_conclusion: ""
