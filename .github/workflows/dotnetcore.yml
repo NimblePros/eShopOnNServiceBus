@@ -1,15 +1,18 @@
 name: eShopOnNServiceBus Build and Test
 
 on: [push, pull_request, workflow_dispatch]
+env:
+  CODE_COVERAGE_ARTIFACT_NAME: code-coverage-results
+  CODE_COVERAGE_ARTIFACT_PATH: code-coverage-results.md
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
     outputs:
-        pr-number: ${{ steps.PRNumberStep.outputs.pr-number }}
-        code-coverage-artifact-name: code-coverage-results
-        code-coverage-artifact-path: code-coverage-results.md
+        pr-number: ${{ steps.CapturePRNumber.outputs.pr-number }}
+        code-coverage-artifact-name: ${{ env.CODE_COVERAGE_ARTIFACT_NAME }}
+        code-coverage-artifact-path: ${{ env.CODE_COVERAGE_ARTIFACT_PATH }}
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -41,11 +44,11 @@ jobs:
       uses: actions/upload-artifact@v4
       if: success() || failure()
       with:
-        name: code-coverage-results
-        path: code-coverage-results.md
+        name: ${{ env.CODE_COVERAGE_ARTIFACT_NAME }}
+        path: ${{ env.CODE_COVERAGE_ARTIFACT_PATH }}
         retention-days: 1
     - name: Capture the PR number
-      id: PRNumberStep
+      id: CapturePRNumber
       shell: bash
       env:
         PR_NUMBER: ${{ github.event.number }}
@@ -57,4 +60,4 @@ jobs:
     with:
       pr-number: ${{ needs.build.outputs.pr-number }}
       code-coverage-artifact-name: ${{ needs.build.outputs.code-coverage-artifact-name }}
-      code-coverage-artifact-path: ${{ needs.build.outputs.code-coverage-artifact-path }}
+      code-coverage-artifact-path: ${{ needs.build.outputs.code-coverage-artifact-path }}    
