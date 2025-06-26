@@ -2,14 +2,16 @@ name: eShopOnNServiceBus Build and Test
 
 on: [push, pull_request, workflow_dispatch]
 
+env:
+  CODE_COVERAGE_ARTIFACT_NAME: code-coverage-results
+  CODE_COVERAGE_ARTIFACT_PATH: code-coverage-results.md
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
     outputs:
         pr-number: ${{ steps.PRNumberStep.outputs.pr-number }}
-        code-coverage-artifact-name: code-coverage-results
-        code-coverage-artifact-path: code-coverage-results.md
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -41,8 +43,8 @@ jobs:
       uses: actions/upload-artifact@v4
       if: success() || failure()
       with:
-        name: code-coverage-results
-        path: code-coverage-results.md
+        name: $CODE_COVERAGE_ARTIFACT_NAME
+        path: $CODE_COVERAGE_ARTIFACT_PATH
         retention-days: 1
     - name: Capture the PR number
       id: PRNumberStep
@@ -56,5 +58,5 @@ jobs:
     uses: NimblePros/NimblePros.GitHub.Workflows/.github/workflows/comment-on-pr.yml@main
     with:
       pr-number: ${{ needs.build.outputs.pr-number }}
-      code-coverage-artifact-name: ${{ needs.build.outputs.code-coverage-artifact-name }}
-      code-coverage-artifact-path: ${{ needs.build.outputs.code-coverage-artifact-path }}
+      code-coverage-artifact-name: $CODE_COVERAGE_ARTIFACT_NAME
+      code-coverage-artifact-path: $CODE_COVERAGE_ARTIFACT_PATH
