@@ -1,0 +1,45 @@
+name: Comment on the Pull Request
+
+# read-write repo token
+# See: https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
+# Don't remove this file - read on at: https://blog.nimblepros.com/blogs/using-workflow-run-in-github-actions/
+
+on:
+  workflow_run:
+    workflows: ["eShopOnNServiceBus Build and Test"]
+    types:
+      - completed
+
+jobs:
+   get-inputs:
+     runs-on: ubuntu-latest
+     
+     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: workflow-outputs
+
+      - name: Read output values
+        id: read
+        run: |
+          pr-number=$(cat pr-number.txt)
+          code-coverage-artifact-name=$(cat artifact_name.txt)
+          code-coverage-artifact-path=$(cat artifact_path.txt)
+
+          echo "pr-number=$pr-number" >> $GITHUB_ENV
+          echo "code-coverage-artifact-name=$code-coverage-artifact-name" >> $GITHUB_ENV
+          echo "code-coverage-artifact-path=$code-coverage-artifact-path" >> $GITHUB_ENV
+
+   add-code-coverage-to-pr:
+     needs: get-inputs
+     runs-on: ubuntu-latest
+     steps:
+      - run: echo ${{ env.pr-number }}
+      - run: echo ${{ env.code-coverage-artifact-name }}
+      - run: echo ${{ env.code-coverage-artifact-path }}
+   # uses: NimblePros/NimblePros.GitHub.Workflows/.github/workflows/comment-on-pr.yml@main
+   # with:
+   #   pr-number: ${{ env.pr-number }}
+   #   code-coverage-artifact-name: ${{ env.code-coverage-artifact-name }}
+   #   code-coverage-artifact-path: ${{ env.code-coverage-artifact-path }}    

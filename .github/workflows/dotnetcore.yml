@@ -53,11 +53,17 @@ jobs:
       env:
         PR_NUMBER: ${{ github.event.number }}
       run: echo pr-number=$PR_NUMBER >> $GITHUB_OUTPUT
-  
-  add-code-coverage-to-pr:
-    needs: build
-    uses: NimblePros/NimblePros.GitHub.Workflows/.github/workflows/comment-on-pr.yml@main
-    with:
-      pr-number: ${{ needs.build.outputs.pr-number }}
-      code-coverage-artifact-name: ${{ needs.build.outputs.code-coverage-artifact-name }}
-      code-coverage-artifact-path: ${{ needs.build.outputs.code-coverage-artifact-path }}    
+    - name: Save outputs to files
+      run: |
+          echo "${{ github.event.number }}" > pr_number.txt
+          echo "${{ env.CODE_COVERAGE_ARTIFACT_NAME }}" > artifact_name.txt
+          echo "${{ env.CODE_COVERAGE_ARTIFACT_PATH }}" > artifact_path.txt
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: workflow-outputs
+        path: |
+          pr_number.txt
+          artifact_name.txt
+          artifact_path.txt
+        retention-days: 1
