@@ -44,6 +44,9 @@ jobs:
         retention-days: 1
   add-code-coverage-to-pr:
     needs: build
-    uses: NimblePros/NimblePros.GitHub.Workflows/.github/workflows/comment-on-pr.yml@main
-    with:
-      pr-number: ${{ needs.build.outputs.pr-number }}
+    runs-on: ubuntu-latest
+    #uses: NimblePros/NimblePros.GitHub.Workflows/.github/workflows/comment-on-pr.yml@main
+    #with:
+    #  pr-number: ${{ needs.build.outputs.pr-number }}
+    steps:
+        - run: echo 'PR number ${{ needs.build.outputs.pr-number }}'
