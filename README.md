@@ -201,7 +201,7 @@ Learn more about using the dev container in [eShopOnWeb's dev container readme](
 
 ### eShopOnWeb Docs Dev Container
 
-If you want to help maintain [the documentation](https://nimblepros.github.io/eShopOnWeb/), we have a [.devcontainer folder within the docs folder](/docs/.devcontainer). This allows us to see our documentation changes in a container running Ruby and the GitHub Pages environment.
+If you want to help maintain [the documentation](https://nimblepros.github.io/eShopOnWeb/), we have a [.devcontainer folder within the docs folder](/docs/.devcontainer). This allows us to see our documentation changes in a GitHub Pages environment.
 
 ### Learn More about Dev Containers
 
