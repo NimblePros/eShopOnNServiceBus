@@ -44,13 +44,8 @@ jobs:
 
    add-code-coverage-to-pr:
      needs: get-inputs
-     runs-on: ubuntu-latest
-     steps:
-      - run: echo ${{ needs.get-inputs.outputs.pr-number }}
-      - run: echo ${{ needs.get-inputs.outputs.artifact-name }}
-      - run: echo ${{ needs.get-inputs.outputs.artifact-path }}
-   # uses: NimblePros/NimblePros.GitHub.Workflows/.github/workflows/comment-on-pr.yml@main
-   # with:
-   #   pr-number: ${{ env.pr-number }}
-   #   code-coverage-artifact-name: ${{ env.code-coverage-artifact-name }}
-   #   code-coverage-artifact-path: ${{ env.code-coverage-artifact-path }}    
+     uses: NimblePros/NimblePros.GitHub.Workflows/.github/workflows/comment-on-pr.yml@main
+     with:
+       pr-number: ${{ needs.get-inputs.outputs.pr-number }}
+       code-coverage-artifact-name: ${{ needs.get-inputs.outputs.artifact-name }}
+       code-coverage-artifact-path: ${{ needs.get-inputs.outputs.artifact-path }}    
