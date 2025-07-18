@@ -6,14 +6,14 @@ public static class NServiceBusConfiguration
 {
     public static EndpointConfiguration GetNServiceBusConfiguration()
     {
-        var endpointConfiguration = new EndpointConfiguration("orders-worker");
+        var endpointConfiguration = new EndpointConfiguration("orders");
         endpointConfiguration.UseSerialization<SystemJsonSerializer>();
 
         var transport = endpointConfiguration.UseTransport<LearningTransport>();
 
         transport.Routing().RouteToEndpoint(
           typeof(OrderCreatedEvent),
-          "orders-worker");
+          "orders");
 
         endpointConfiguration.SendFailedMessagesTo("error");
         endpointConfiguration.AuditProcessedMessagesTo("audit");
