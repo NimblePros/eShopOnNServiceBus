@@ -14,7 +14,7 @@ def main():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host=RABBITMQ_HOST, port=RABBITMQ_PORT, credentials=credentials))
     channel = connection.channel()
 
-    channel.queue_declare(queue='orders-worker')
+    channel.queue_declare(queue='orders-worker',durable=True,arguments={"x-queue-type": "quorum"})
 
     def callback(ch, method, properties, body):
         print(f" [x] Received {body}")
