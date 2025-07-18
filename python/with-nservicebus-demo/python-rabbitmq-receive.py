@@ -14,12 +14,12 @@ def main():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host=RABBITMQ_HOST, port=RABBITMQ_PORT, credentials=credentials))
     channel = connection.channel()
 
-    channel.queue_declare(queue='orders-worker',durable=True,arguments={"x-queue-type": "quorum"})
+    channel.queue_declare(queue='orders',durable=True,arguments={"x-queue-type": "quorum"})
 
     def callback(ch, method, properties, body):
         print(f" [x] Received {body}")
 
-    channel.basic_consume(queue='orders-worker', on_message_callback=callback, auto_ack=True)
+    channel.basic_consume(queue='orders', on_message_callback=callback, auto_ack=True)
 
     print(' [*] Waiting for messages. To exit press CTRL+C')
     channel.start_consuming()
