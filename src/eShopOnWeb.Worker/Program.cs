@@ -8,4 +8,5 @@ builder.UseConsoleLifetime();
 builder.UseNServiceBus(context => NServiceBusConfiguration.GetNServiceBusConfiguration());
 
 var host = builder.Build();
+
 host.Run();

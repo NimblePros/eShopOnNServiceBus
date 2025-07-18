@@ -16,7 +16,8 @@ public static class NServiceBusConfiguration
         // Also, the connection string could be tied in via DI
         var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
         transport.ConnectionString("amqp://rabbitUser:rabbitPassword@localhost:5672");
-        transport.UseConventionalRoutingTopology(QueueType.Quorum);
+        // We're using Direct routing to run on a single exchange
+        transport.UseDirectRoutingTopology(QueueType.Quorum);
         transport.DisableRemoteCertificateValidation();
         
         transport.Routing().RouteToEndpoint(
