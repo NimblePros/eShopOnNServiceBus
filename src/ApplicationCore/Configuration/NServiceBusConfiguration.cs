@@ -1,22 +1,19 @@
-﻿using Microsoft.eShopWeb.ApplicationCore.Entities.OrderAggregate.Events;
+﻿using System;
+using Microsoft.eShopWeb.ApplicationCore.Entities.OrderAggregate.Events;
 using NServiceBus;
 
 namespace Microsoft.eShopWeb.ApplicationCore.Configuration;
 public static class NServiceBusConfiguration
 {
-    public static EndpointConfiguration GetNServiceBusConfiguration()
+    public static EndpointConfiguration GetNServiceBusConfiguration(string transportConnectionString)
     {
         var endpointConfiguration = new EndpointConfiguration("orders");
         endpointConfiguration.UseSerialization<SystemJsonSerializer>();
-
-        // This is DEMO code
-        // Normally, I wouldn't recommend disabling the remote certificate validation
-        // However, we're running locally
-        // Also, the connection string could be tied in via DI
+        
         var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
-        transport.ConnectionString("amqp://rabbitUser:rabbitPassword@localhost:5672");
-        // We're using Direct routing to run on a single exchange
-        transport.UseDirectRoutingTopology(QueueType.Quorum);
+        transport.ConnectionString(transportConnectionString);
+        transport.UseConventionalRoutingTopology(QueueType.Quorum);
+        // Only disabling in dev - DO NOT USE THIS IN PRODUCTION
         transport.DisableRemoteCertificateValidation();
         
         transport.Routing().RouteToEndpoint(
@@ -25,6 +22,19 @@ public static class NServiceBusConfiguration
 
         endpointConfiguration.SendFailedMessagesTo("error");
         endpointConfiguration.AuditProcessedMessagesTo("audit");
+        endpointConfiguration.EnableOpenTelemetry();
+        endpointConfiguration.EnableInstallers();
+
+        endpointConfiguration.SendHeartbeatTo(
+            serviceControlQueue: "Particular.ServiceControl", //confirmed Queue name in RabbitMQ
+            frequency: TimeSpan.FromSeconds(15),
+            timeToLive: TimeSpan.FromSeconds(30));
+
+        var metrics = endpointConfiguration.EnableMetrics();
+
+        metrics.SendMetricDataToServiceControl(
+            serviceControlMetricsAddress: "Particular.Monitoring", //confirmed Queue name in RabbitMQ
+            interval: TimeSpan.FromMinutes(1));
 
         return endpointConfiguration;
     }

@@ -53,7 +53,7 @@ if (!string.IsNullOrEmpty(gitHubClientId))
 }
 
 // NServiceBus
-builder.Host.UseNServiceBus( config => NServiceBusConfiguration.GetNServiceBusConfiguration());
+builder.Host.UseNServiceBus( config => NServiceBusConfiguration.GetNServiceBusConfiguration(builder.Configuration.GetConnectionString("transport")!));
 
 builder.Services.AddScoped<ITokenClaimsService, IdentityTokenClaimService>();
 builder.Services.AddCoreServices(builder.Configuration);

@@ -4,11 +4,9 @@ using Microsoft.eShopWeb.ApplicationCore.Configuration;
 using NServiceBus;
 using NServiceBus.Installation;
 
-var builder = Host.CreateDefaultBuilder();
+var builder = Host.CreateApplicationBuilder(args);
 
-builder.UseConsoleLifetime();
-builder.UseNServiceBus(context => NServiceBusConfiguration.GetNServiceBusConfiguration());
-await Installer.Setup(NServiceBusConfiguration.GetNServiceBusConfiguration());
+builder.UseNServiceBus(NServiceBusConfiguration.GetNServiceBusConfiguration(builder.Configuration.GetConnectionString("transport")!));
 
 var host = builder.Build();
 

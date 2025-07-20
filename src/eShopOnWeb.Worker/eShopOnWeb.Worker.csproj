@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.RabbitMQ.Client" />
     <PackageReference Include="NServiceBus" />
     <PackageReference Include="NServiceBus.Extensions.Hosting" />
     <PackageReference Include="NServiceBus.RabbitMQ" />

@@ -58,9 +58,21 @@ public static class Extensions
                             "Microsoft.AspNetCore.Server.Kestrel",
                             "System.Net.Http"
                         );
-                })
+                    // NServiceBus metrics
+                    metrics.AddMeter("NServiceBus.*")
+                      .AddAspNetCoreInstrumentation()
+                      .AddHttpClientInstrumentation()
+                      .AddRuntimeInstrumentation();
+                    })
                 .WithTracing(tracing =>
                 {
+                    // ServiceBus tracing
+                    tracing.AddSource("NServiceBus.*")
+                        .AddAspNetCoreInstrumentation()
+                        // Uncomment the following line to enable gRPC instrumentation (requires the OpenTelemetry.Instrumentation.GrpcNetClient package)
+                        //.AddGrpcClientInstrumentation()
+                        .AddHttpClientInstrumentation();
+
                     if (builder.Environment.IsDevelopment())
                     {
                         tracing.SetSampler<AlwaysOnSampler>();
