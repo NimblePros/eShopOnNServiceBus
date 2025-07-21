@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
 using Ardalis.Result;
 using Microsoft.eShopWeb.ApplicationCore.Entities.BasketAggregate;
+using Microsoft.eShopWeb.ApplicationCore.Entities.BasketAggregate.Events;
 using Microsoft.eShopWeb.ApplicationCore.Interfaces;
 using Microsoft.eShopWeb.ApplicationCore.Specifications;
+using NServiceBus;
 
 namespace Microsoft.eShopWeb.ApplicationCore.Services;
 
@@ -12,12 +16,13 @@ public class BasketService : IBasketService
 {
     private readonly IRepository<Basket> _basketRepository;
     private readonly IAppLogger<BasketService> _logger;
-
+    private readonly IMessageSession _messageSession;
     public BasketService(IRepository<Basket> basketRepository,
-        IAppLogger<BasketService> logger)
+        IAppLogger<BasketService> logger, IMessageSession messageSession)
     {
         _basketRepository = basketRepository;
         _logger = logger;
+        _messageSession = messageSession;
     }
 
     public async Task<Basket> AddItemToBasket(string username, int catalogItemId, decimal price, int quantity = 1)
@@ -29,6 +34,8 @@ public class BasketService : IBasketService
         {
             basket = new Basket(username);
             await _basketRepository.AddAsync(basket);
+            BasketCreatedEvent basketCreatedEvent = new BasketCreatedEvent(basket.Id, basket.BuyerId, DateTime.UtcNow,basket.Items.ToList());
+            await _messageSession.Send(basketCreatedEvent);
         }
 
         basket.AddItem(catalogItemId, price, quantity);

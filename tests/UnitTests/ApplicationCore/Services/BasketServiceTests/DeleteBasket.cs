@@ -12,6 +12,8 @@ public class DeleteBasket
     private readonly string _buyerId = "Test buyerId";
     private readonly IRepository<Basket> _mockBasketRepo = Substitute.For<IRepository<Basket>>();
     private readonly IAppLogger<BasketService> _mockLogger = Substitute.For<IAppLogger<BasketService>>();
+    private readonly IMessageSession _mockSession = Substitute.For<IMessageSession>();
+
 
     [Fact]
     public async Task ShouldInvokeBasketRepositoryDeleteAsyncOnce()
@@ -21,7 +23,7 @@ public class DeleteBasket
         basket.AddItem(2, 1.1m, 1);
         _mockBasketRepo.GetByIdAsync(Arg.Any<int>(), Arg.Any<CancellationToken>())
             .Returns(basket);
-        var basketService = new BasketService(_mockBasketRepo, _mockLogger);
+        var basketService = new BasketService(_mockBasketRepo, _mockLogger, _mockSession);
 
         await basketService.DeleteBasketAsync(1);
 

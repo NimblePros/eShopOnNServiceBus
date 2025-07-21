@@ -2,8 +2,7 @@
 
 var builder = Host.CreateApplicationBuilder(args);
 
-builder.UseNServiceBus(NServiceBusConfiguration.GetOrderEndpointConfiguration((builder.Configuration.GetConnectionString("transport")!)));
+builder.UseNServiceBus(NServiceBusConfiguration.GetBasketEndpointConfiguration((builder.Configuration.GetConnectionString("transport")!)));
 
 var host = builder.Build();
-
 host.Run();

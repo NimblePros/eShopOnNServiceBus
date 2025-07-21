@@ -65,7 +65,7 @@ builder
         .WaitFor(seq)
         .WaitFor(servicePulse);
 
-builder.AddProject<Projects.eShopOnWeb_Worker>("eshoponweb-worker")
+builder.AddProject<Projects.eShopOnWeb_Worker>("NServiceBus-orders")
     .WaitFor(transport)
     .WaitFor(servicePulse);
 
@@ -75,5 +75,9 @@ builder
         .WaitFor(seq)
         .WaitFor(transport)
         .WaitFor(servicePulse);
+
+builder.AddProject<Projects.eShopOnNServiceBus_BasketsNServiceBusEndpoint>("NServiceBus-baskets")
+    .WaitFor(transport)
+    .WaitFor(servicePulse);
 
 builder.Build().Run();

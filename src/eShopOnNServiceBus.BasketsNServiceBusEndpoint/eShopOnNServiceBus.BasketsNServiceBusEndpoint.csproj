@@ -4,7 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-eShopOnWeb.Worker-30ced907-7698-44a1-9c83-71b84755240f</UserSecretsId>
+    <UserSecretsId>dotnet-eShopOnNServiceBus.BasketsNServiceBusEndpoint-a9ae5179-e9a6-49af-9acb-4ec063c46136</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

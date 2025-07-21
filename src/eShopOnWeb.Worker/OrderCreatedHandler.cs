@@ -3,7 +3,7 @@ using Microsoft.eShopWeb.ApplicationCore.Entities.OrderAggregate.Events;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
 
-namespace eShopOnWeb.Worker.Handlers;
+namespace eShopOnWeb.Worker;
 
     public class OrderCreatedEventHandler(ILogger<OrderCreatedEventHandler> logger)
   : IHandleMessages<OrderCreatedEvent>
