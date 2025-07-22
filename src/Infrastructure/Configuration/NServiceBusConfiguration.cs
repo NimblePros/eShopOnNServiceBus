@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Intrinsics.Arm;
+using Microsoft.eShopWeb.ApplicationCore.Entities.BasketAggregate.Commands;
 using Microsoft.eShopWeb.ApplicationCore.Entities.BasketAggregate.Events;
 using Microsoft.eShopWeb.ApplicationCore.Entities.OrderAggregate.Events;
 using NServiceBus;
@@ -7,7 +9,7 @@ using NServiceBus;
 namespace Microsoft.eShopWeb.Infrastructure.Configuration;
 public static class NServiceBusConfiguration
 {
-    public static EndpointConfiguration GetNServiceBusConfiguration(string transportConnectionString, string queueName, List<Type> messageTypes)
+    public static EndpointConfiguration GetNServiceBusConfiguration(string transportConnectionString, string queueName, Dictionary<Type,string> messageTypesToQueues)
     {
         var endpointConfiguration = new EndpointConfiguration(queueName);
         endpointConfiguration.UseSerialization<SystemJsonSerializer>();
@@ -19,10 +21,10 @@ public static class NServiceBusConfiguration
         transport.DisableRemoteCertificateValidation();
 
         // Route the domain events
-        foreach (var message in messageTypes) {
+        foreach (var messageType in messageTypesToQueues.Keys) {
             transport.Routing().RouteToEndpoint(
-              message,
-              queueName); 
+              messageType,
+              messageTypesToQueues[messageType]); 
         };
 
         endpointConfiguration.SendFailedMessagesTo("error");
@@ -46,16 +48,20 @@ public static class NServiceBusConfiguration
 
     public static EndpointConfiguration GetOrderEndpointConfiguration(string transportConnectionString)
     {
-        List<Type> domainEventTypes = [];
-        domainEventTypes.Add(typeof(OrderCreatedEvent));
-        return NServiceBusConfiguration.GetNServiceBusConfiguration(transportConnectionString, "orders", domainEventTypes);
+        Dictionary<Type, string> messagingRouting = new();
+        messagingRouting.Add(typeof(OrderCreatedEvent), "orders");
+        var endpointConfig = NServiceBusConfiguration.GetNServiceBusConfiguration(transportConnectionString, "orders", messagingRouting);
+        // ONLY USE THIS IN DEV - DO NOT USE IN PRODUCTION
+        endpointConfig.UsePersistence<LearningPersistence>();
+        return endpointConfig;
     }
 
     public static EndpointConfiguration GetBasketEndpointConfiguration(string transportConnectionString)
     {
-        List<Type> domainEventTypes = [];
-        domainEventTypes.Add(typeof(BasketCreatedEvent));
-        return NServiceBusConfiguration.GetNServiceBusConfiguration(transportConnectionString, "baskets", domainEventTypes);
+        Dictionary<Type,string> messagingRouting = new();
+        messagingRouting.Add(typeof(BasketCreatedEvent),"baskets");
+        messagingRouting.Add(typeof(StartBasketTrackingCommand),"orders");
+        return NServiceBusConfiguration.GetNServiceBusConfiguration(transportConnectionString, "baskets", messagingRouting);
     }
 
     public static EndpointConfiguration RegisterMultipleEndpointsForWeb(string transportConnectionString)
