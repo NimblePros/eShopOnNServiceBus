@@ -1,14 +1,11 @@
-﻿using System.Text.Json;
-using Microsoft.AspNetCore.Server.Kestrel;
-using Microsoft.eShopWeb.ApplicationCore.Configuration;
-using NServiceBus;
-using NServiceBus.Installation;
+﻿using Microsoft.eShopWeb.Infrastructure.Configuration;
 
-var builder = Host.CreateDefaultBuilder();
+var builder = Host.CreateApplicationBuilder(args);
+var endpointConfiguration = NServiceBusConfiguration.GetOrderEndpointConfiguration((builder.Configuration.GetConnectionString("transport")!));
+ endpointConfiguration.AuditSagaStateChanges(
+    serviceControlQueue: "Particular.ServiceControl");
 
-builder.UseConsoleLifetime();
-builder.UseNServiceBus(context => NServiceBusConfiguration.GetNServiceBusConfiguration());
-await Installer.Setup(NServiceBusConfiguration.GetNServiceBusConfiguration());
+builder.UseNServiceBus(endpointConfiguration);
 
 var host = builder.Build();
 

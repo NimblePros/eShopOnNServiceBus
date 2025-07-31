@@ -12,6 +12,8 @@ public class AddItemToBasket
     private readonly string _buyerId = "Test buyerId";
     private readonly IRepository<Basket> _mockBasketRepo = Substitute.For<IRepository<Basket>>();
     private readonly IAppLogger<BasketService> _mockLogger = Substitute.For<IAppLogger<BasketService>>();
+    private readonly IMessageSession _mockSession = Substitute.For<IMessageSession>();
+
 
     [Fact]
     public async Task InvokesBasketRepositoryGetBySpecAsyncOnce()
@@ -21,7 +23,7 @@ public class AddItemToBasket
 
         _mockBasketRepo.FirstOrDefaultAsync(Arg.Any<BasketWithItemsSpecification>(), Arg.Any<CancellationToken>()).Returns(basket);
 
-        var basketService = new BasketService(_mockBasketRepo, _mockLogger);
+        var basketService = new BasketService(_mockBasketRepo, _mockLogger,_mockSession);
 
         await basketService.AddItemToBasket(basket.BuyerId, 1, 1.50m);
 
@@ -35,7 +37,7 @@ public class AddItemToBasket
         basket.AddItem(1, 1.1m, 1);
         _mockBasketRepo.FirstOrDefaultAsync(Arg.Any<BasketWithItemsSpecification>(), Arg.Any<CancellationToken>()).Returns(basket);
 
-        var basketService = new BasketService(_mockBasketRepo, _mockLogger);
+        var basketService = new BasketService(_mockBasketRepo, _mockLogger, _mockSession);
 
         await basketService.AddItemToBasket(basket.BuyerId, 1, 1.50m);
 

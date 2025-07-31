@@ -16,10 +16,12 @@
     <PackageReference Include="Aspire.Hosting.Seq" />
     <PackageReference Include="Aspire.RabbitMQ.Client" />
     <PackageReference Include="NimblePros.Metronome" />
+    <PackageReference Include="NServiceBus.SagaAudit" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorAdmin\BlazorAdmin.csproj" />
+    <ProjectReference Include="..\eShopOnNServiceBus.BasketsNServiceBusEndpoint\eShopOnNServiceBus.BasketsNServiceBusEndpoint.csproj" />
     <ProjectReference Include="..\eShopOnWeb.Worker\eShopOnWeb.Worker.csproj" />
     <ProjectReference Include="..\PublicApi\PublicApi.csproj" />
     <ProjectReference Include="..\Web\Web.csproj" />
