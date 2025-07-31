@@ -10,6 +10,7 @@
 		<PackageReference Include="Ardalis.Result" />
     <PackageReference Include="Ardalis.Specification" />
     <PackageReference Include="NServiceBus" />
+    <PackageReference Include="NServiceBus.RabbitMQ" />
 		<PackageReference Include="System.Security.Claims" />
 		<PackageReference Include="System.Text.Json" />
 	</ItemGroup>
