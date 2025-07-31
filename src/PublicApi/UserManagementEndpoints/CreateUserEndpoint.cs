@@ -29,7 +29,7 @@ public class CreateUserEndpoint(UserManager<ApplicationUser> userManager) : Endp
         var response = new CreateUserResponse(request.CorrelationId());
         if (request is null || request.User is null || request.User.UserName is null)
         {
-            await SendErrorsAsync(400, ct);
+            await Send.ErrorsAsync(400, ct);
             return;
         }
         var existingUser = await userManager.FindByNameAsync(request.User.UserName);
@@ -46,7 +46,7 @@ public class CreateUserEndpoint(UserManager<ApplicationUser> userManager) : Endp
             var createdUser = await userManager.FindByNameAsync(request.User.UserName);
             await userManager.AddPasswordAsync(createdUser!, AuthorizationConstants.DEFAULT_PASSWORD);
             response.UserId = createdUser!.Id;
-            await SendCreatedAtAsync<UserGetByIdEndpoint>(new { UserId = createdUser!.Id }, response, cancellation: ct);
+            await Send.CreatedAtAsync<UserGetByIdEndpoint>(new { UserId = createdUser!.Id }, response, cancellation: ct);
         }
     }
 }

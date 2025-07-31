@@ -62,6 +62,6 @@ public class CreateCatalogItemEndpoint(IRepository<CatalogItem> itemRepository, 
         };
         response.CatalogItem = dto;
 
-        await SendCreatedAtAsync<CatalogItemGetByIdEndpoint>(new{ CatalogItemId = dto.Id }, response, cancellation: ct);
+        await Send.CreatedAtAsync<CatalogItemGetByIdEndpoint>(new{ CatalogItemId = dto.Id }, response, cancellation: ct);
     }
 }
