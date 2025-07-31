@@ -78,11 +78,11 @@ builder
 
 builder.AddProject<Projects.eShopOnNServiceBus_BasketsNServiceBusEndpoint>("NServiceBus-baskets")
     .WaitFor(transport)
-    .WaitFor(servicePulse);
-    .WaitFor(rabbitmq);
+    .WaitFor(servicePulse)
+    .WaitFor(transport);
 
 #pragma warning disable
 builder.AddPythonApp("python-queue-listener", "../../", "./python/with-nservicebus-demo/python-rabbitmq-combined.py")
-    .WaitFor(rabbitmq);
+    .WaitFor(transport);
 
 builder.Build().Run();

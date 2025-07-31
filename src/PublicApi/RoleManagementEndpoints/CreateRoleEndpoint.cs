@@ -35,7 +35,7 @@ public class CreateRoleEndpoint(RoleManager<IdentityRole> roleManager) : Endpoin
         {
             var responseRole = await roleManager.FindByNameAsync(request.Name);
             response.Role = responseRole!;
-            await SendCreatedAtAsync<RoleGetByIdEndpoint>(new { RoleId = response.Role.Id }, response, cancellation: ct);
+            await Send.CreatedAtAsync<RoleGetByIdEndpoint>(new { RoleId = response.Role.Id }, response, cancellation: ct);
         }
     }
 }
