@@ -37,6 +37,7 @@
     </PackageReference>
     <PackageReference Include="NimblePros.Metronome" />
     <PackageReference Include="NServiceBus.Extensions.Hosting" />
+    <PackageReference Include="NServiceBus.SagaAudit" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" />     
     <PackageReference Include="System.Text.Encoding.Extensions" />
     <PackageReference Include="System.Threading" />
