@@ -3,11 +3,11 @@ using Microsoft.Extensions.Hosting;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var seq = builder.AddContainer("seq", "datalust/seq:2025.1")
-                 .WithHttpEndpoint(port: 8082, targetPort: 8082, name: "http")
+var seq = builder.AddSeq("seq")
+                 .WithImage("datalust/seq:2025.1")
+                 .ExcludeFromManifest()
                  .WithLifetime(ContainerLifetime.Persistent)
-                 .WithEnvironment("ACCEPT_EULA", "Y")
-                 .WithEnvironment("SEQ_API_LISTENURIS","http://localhost:8082,https://localhost:5341");
+                 .WithEnvironment("ACCEPT_EULA", "Y");
 
 var rabbitUser = builder.AddParameter("rabbitUser", "rabbitUser");
 var rabbitPassword = builder.AddParameter("rabbitPassword", "rabbitPassword");
