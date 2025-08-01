@@ -25,7 +25,8 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
-    <PackageReference Include="NimblePros.Metronome" />     
+    <PackageReference Include="NimblePros.Metronome" />
+    <PackageReference Include="NServiceBus.SagaAudit" />     
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
   </ItemGroup>
 

@@ -29,6 +29,8 @@ public static class NServiceBusConfiguration
 
         endpointConfiguration.SendFailedMessagesTo("error");
         endpointConfiguration.AuditProcessedMessagesTo("audit");
+        endpointConfiguration.AuditSagaStateChanges(
+    serviceControlQueue: "audit");
         endpointConfiguration.EnableOpenTelemetry();
         endpointConfiguration.EnableInstallers();
 
@@ -80,6 +82,8 @@ public static class NServiceBusConfiguration
 
         endpointConfiguration.SendFailedMessagesTo("error");
         endpointConfiguration.AuditProcessedMessagesTo("audit");
+        endpointConfiguration.AuditSagaStateChanges(
+    serviceControlQueue: "audit");
         endpointConfiguration.EnableOpenTelemetry();
         endpointConfiguration.EnableInstallers();
 
