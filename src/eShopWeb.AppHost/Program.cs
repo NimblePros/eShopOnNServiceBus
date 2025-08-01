@@ -62,6 +62,7 @@ var servicePulse = builder.AddContainer("ServicePulse", "particular/servicepulse
 // Tie apps to Particular Platform
 builder
     .AddProject<Projects.PublicApi>(nameof(Projects.PublicApi).ToLower())
+        .WithReference(seq)
         .WaitFor(seq)
         .WaitFor(servicePulse);
 
@@ -71,6 +72,7 @@ builder.AddProject<Projects.eShopOnWeb_Worker>("NServiceBus-orders")
 
 builder
     .AddProject<Projects.Web>(nameof(Projects.Web).ToLower())
+        .WithReference(seq)
         .WaitFor(seq)
         .WaitFor(transport)
         .WaitFor(servicePulse);
