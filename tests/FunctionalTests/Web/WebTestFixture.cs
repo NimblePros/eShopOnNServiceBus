@@ -10,7 +10,7 @@ namespace Microsoft.eShopWeb.FunctionalTests.Web;
 
 public class TestApplication : WebApplicationFactory<IBasketViewModelService>
 {
-    private readonly string _environment = "Development";
+    private readonly string _environment = "Staging";
 
     protected override IHost CreateHost(IHostBuilder builder)
     {

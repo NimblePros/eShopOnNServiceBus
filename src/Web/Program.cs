@@ -48,7 +48,10 @@ if (!string.IsNullOrEmpty(gitHubClientId))
             };
         });
 }
-if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
+
+// We still want to use RabbitMQ in Development with Aspire Demos
+// For testing purposes, we want to use the Learning Transport
+if (builder.Environment.IsStaging())
 {
     builder.Host.UseNServiceBus(config => NServiceBusConfiguration.RegisterMultipleEndpointsForWebLearningTransport());
 }

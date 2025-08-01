@@ -17,7 +17,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddDatabaseContexts(this IServiceCollection services, IWebHostEnvironment environment, ConfigurationManager configuration)
     {
-        if (environment.IsDevelopment() || environment.IsDocker())
+        if (environment.IsDevelopment() || environment.IsDocker() || environment.IsStaging())
         {
             // Configure SQL Server (local)
             services.ConfigureLocalDatabaseContexts(configuration);
