@@ -3,10 +3,11 @@ using Microsoft.Extensions.Hosting;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var seq = builder.AddSeq("seq")
-                 .ExcludeFromManifest()
+var seq = builder.AddContainer("seq", "datalust/seq:2025.1")
+                 .WithHttpEndpoint(port: 8082, targetPort: 8082, name: "http")
                  .WithLifetime(ContainerLifetime.Persistent)
-                 .WithEnvironment("ACCEPT_EULA", "Y");
+                 .WithEnvironment("ACCEPT_EULA", "Y")
+                 .WithEnvironment("SEQ_API_LISTENURIS","http://localhost:8082,https://localhost:5341");
 
 var rabbitUser = builder.AddParameter("rabbitUser", "rabbitUser");
 var rabbitPassword = builder.AddParameter("rabbitPassword", "rabbitPassword");
@@ -61,7 +62,6 @@ var servicePulse = builder.AddContainer("ServicePulse", "particular/servicepulse
 // Tie apps to Particular Platform
 builder
     .AddProject<Projects.PublicApi>(nameof(Projects.PublicApi).ToLower())
-        .WithReference(seq)
         .WaitFor(seq)
         .WaitFor(servicePulse);
 
@@ -71,7 +71,6 @@ builder.AddProject<Projects.eShopOnWeb_Worker>("NServiceBus-orders")
 
 builder
     .AddProject<Projects.Web>(nameof(Projects.Web).ToLower())
-        .WithReference(seq)
         .WaitFor(seq)
         .WaitFor(transport)
         .WaitFor(servicePulse);
