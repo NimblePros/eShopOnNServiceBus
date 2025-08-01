@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 var builder = DistributedApplication.CreateBuilder(args);
 
 var seq = builder.AddSeq("seq")
+                 .WithImage("datalust/seq:2025.1")
                  .ExcludeFromManifest()
                  .WithLifetime(ContainerLifetime.Persistent)
                  .WithEnvironment("ACCEPT_EULA", "Y");
