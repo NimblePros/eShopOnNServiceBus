@@ -100,4 +100,17 @@ public static class NServiceBusConfiguration
 
         return endpointConfiguration;
     }
+
+    public static EndpointConfiguration RegisterMultipleEndpointsForWebLearningTransport()
+    {
+        var endpointConfiguration = new EndpointConfiguration("web");
+        endpointConfiguration.UseSerialization<SystemJsonSerializer>();
+
+        var transport = endpointConfiguration.UseTransport<LearningTransport>();
+
+        transport.Routing().RouteToEndpoint(typeof(OrderCreatedEvent), "orders");
+        transport.Routing().RouteToEndpoint(typeof(BasketCreatedEvent), "baskets");       
+
+        return endpointConfiguration;
+    }
 }

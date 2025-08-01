@@ -48,8 +48,14 @@ if (!string.IsNullOrEmpty(gitHubClientId))
             };
         });
 }
-
-builder.Host.UseNServiceBus( config => NServiceBusConfiguration.RegisterMultipleEndpointsForWeb(builder.Configuration.GetConnectionString("transport")!));
+if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
+{
+    builder.Host.UseNServiceBus(config => NServiceBusConfiguration.RegisterMultipleEndpointsForWebLearningTransport());
+}
+else
+{
+    builder.Host.UseNServiceBus(config => NServiceBusConfiguration.RegisterMultipleEndpointsForWeb(builder.Configuration.GetConnectionString("transport")!));
+}
 builder.Services.AddScoped<ITokenClaimsService, IdentityTokenClaimService>();
 builder.Services.AddCoreServices(builder.Configuration);
 builder.Services.AddWebServices(builder.Configuration);
