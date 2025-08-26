@@ -14,9 +14,9 @@
     <PackageVersion Include="Ardalis.Result" Version="10.1.0" />
     <PackageVersion Include="Ardalis.Specification" Version="9.2.0" />
     <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="9.2.0" />
-    <PackageVersion Include="Aspire.Hosting.Python" Version="9.4.0" />
-    <PackageVersion Include="Aspire.Hosting.RabbitMQ" Version="9.4.0" />
-    <PackageVersion Include="Aspire.RabbitMQ.Client" Version="9.4.0" />
+    <PackageVersion Include="Aspire.Hosting.Python" Version="9.4.1" />
+    <PackageVersion Include="Aspire.Hosting.RabbitMQ" Version="9.4.1" />
+    <PackageVersion Include="Aspire.RabbitMQ.Client" Version="9.4.1" />
     <PackageVersion Include="AspNetCore.Security.OAuth.Extensions" Version="1.0.0" />
     <PackageVersion Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.4.0" />
     <PackageVersion Include="Azure.Identity" Version="1.14.2" />
@@ -77,9 +77,9 @@
     <PackageVersion Include="System.Threading" Version="4.3.0" />
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.13.0" />
     <!-- Aspire -->
-    <PackageVersion Include="Aspire.Hosting.Seq" Version="9.4.0" />
-    <PackageVersion Include="Aspire.Seq" Version="9.4.0" />
-    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.4.0" />
+    <PackageVersion Include="Aspire.Hosting.Seq" Version="9.4.1" />
+    <PackageVersion Include="Aspire.Seq" Version="9.4.1" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.4.1" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.7.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.4.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.12.0" />
